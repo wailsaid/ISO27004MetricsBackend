@@ -1,4 +1,4 @@
-package com.pfem2.iso27004.Security.config;
+package com.pfem2.iso27004.Config;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;

@@ -9,8 +9,8 @@
 		<version>3.0.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.pfem2</groupId>
-	<artifactId>iso27004</artifactId>
+	<groupId>com.iso27004</groupId>
+	<artifactId>ISMSMetric</artifactId>
 	<version>0.1.1-SNAPSHOT</version>
 	<name>iso27004</name>
 	<description>Demo project for Spring Boot</description>

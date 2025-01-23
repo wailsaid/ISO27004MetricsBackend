@@ -1,4 +1,4 @@
-package com.pfem2.iso27004.Security.config;
+package com.pfem2.iso27004.Config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
