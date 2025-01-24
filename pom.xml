@@ -12,6 +12,10 @@
 	<groupId>com.iso27004</groupId>
 	<artifactId>ISMSMetric</artifactId>
 	<version>0.1.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>collector</module>
+	</modules>
 	<name>iso27004</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -139,5 +143,15 @@
 			</plugin>
 		</plugins>
 	</build>
+<profiles>
+  <profile>
+    <id>low-end</id>
+    <properties>
+      <skipTests>true</skipTests>
+      <maven.javadoc.skip>true</maven.javadoc.skip>
+      <maven.source.skip>true</maven.source.skip>
+    </properties>
+  </profile>
+</profiles>
 
 </project>
