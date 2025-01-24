@@ -13,9 +13,7 @@
 	<artifactId>ISMSMetric</artifactId>
 	<version>0.1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<modules>
-		<module>collector</module>
-	</modules>
+	
 	<name>iso27004</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
