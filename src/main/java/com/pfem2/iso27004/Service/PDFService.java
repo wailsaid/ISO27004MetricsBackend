@@ -37,20 +37,23 @@ public class PDFService {
             PdfWriter writer = new PdfWriter(outputStream);
             PdfDocument pdfDocument = new PdfDocument(writer);
 
-            // pdfDocument.addNewPage();
             String templateName = "indicatorTemplate";
             Context ct = new Context();
 
             List<Evaluation> evaluations = this.evaluationservice.getDashboardIndicator();
-            Map<Evaluation, List<Evaluation>> data = new HashMap<Evaluation, List<Evaluation>>();
+            Map<Evaluation, List<Evaluation>> data = new HashMap<>();
 
             for (Evaluation evaluation : evaluations) {
                 pdfDocument.addNewPage();
-
                 data.put(evaluation,
                         this.evaluationservice.getAllInicatorEvaluations(evaluation.getIndicator().getId()));
             }
+
+            // Phase 3: pass RAG summary and scorecard to the PDF template
             ct.setVariable("evaluations", data);
+            ct.setVariable("ragSummary", this.evaluationservice.getRagSummary());
+            ct.setVariable("scorecard", buildScorecard(evaluations));
+            ct.setVariable("generatedAt", new java.util.Date());
 
             String renderedHtml = templateEngine.process(templateName, ct);
 
@@ -58,11 +61,25 @@ public class PDFService {
             HtmlConverter.convertToPdf(renderedHtml, pdfDocument, converterProperties);
 
             pdfDocument.close();
-
             outputStream.flush();
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private Map<String, Object> buildScorecard(List<Evaluation> evaluations) {
+        long total = evaluations.size();
+        long target = evaluations.stream().filter(e -> "Target-achieved".equals(e.getStatus())).count();
+        long acceptable = evaluations.stream().filter(e -> "Acceptable".equals(e.getStatus())).count();
+        long bad = evaluations.stream().filter(e -> "Bad".equals(e.getStatus())).count();
+
+        Map<String, Object> scorecard = new HashMap<>();
+        scorecard.put("total", total);
+        scorecard.put("targetAchieved", target);
+        scorecard.put("acceptable", acceptable);
+        scorecard.put("bad", bad);
+        scorecard.put("complianceRate", total > 0 ? Math.round((double) (target + acceptable) / total * 100.0) : 0);
+        return scorecard;
     }
 }

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -57,4 +59,33 @@ public class Evaluation {
     @JoinColumn(name = "user_id")
     private User resp;
 
+    // ISO 27004 RAG status (§5.4.5)
+    @Enumerated(EnumType.STRING)
+    private RagStatus ragStatus;
+
+    // Ratio value used in RAG decision
+    private Double indicatorRatio;
+
+    // Trend analysis (§9.2)
+    @Enumerated(EnumType.STRING)
+    private TrendDirection trendDirection;
+
+    // Verification workflow (§8.3): DRAFT → SUBMITTED → VERIFIED / REJECTED
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "varchar(20) default 'DRAFT'")
+    private EvalStatus evalStatus;
+
+    // Audit trail (§8.3b)
+    private String collectedBy;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date collectedAt;
+
+    @Column(length = 1000)
+    private String collectionIssues;
+
+    private String verifiedBy;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date verifiedAt;
 }

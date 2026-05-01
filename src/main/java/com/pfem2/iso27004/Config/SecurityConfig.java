@@ -51,6 +51,23 @@ public class SecurityConfig {
 
                     auth.requestMatchers("/api/v1/user/**").hasAuthority("ADMIN");
                     auth.requestMatchers("/api/v1/app/**").hasAuthority("ADMIN");
+
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/programme/**").hasAnyAuthority("ADMIN", "USER", "COLLECTOR");
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/programme/**").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.PUT, "/api/v1/programme/**").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE, "/api/v1/programme/**").hasAuthority("ADMIN");
+
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/indicator/library/**").hasAnyAuthority("ADMIN", "USER", "COLLECTOR");
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/indicator/library/**").hasAuthority("ADMIN");
+
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/evaluation/trend/**").hasAnyAuthority("ADMIN", "USER", "COLLECTOR");
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/evaluation/scorecard").hasAnyAuthority("ADMIN", "USER", "COLLECTOR");
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/evaluation/rag-summary").hasAnyAuthority("ADMIN", "USER", "COLLECTOR");
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/evaluation/overdue").hasAnyAuthority("ADMIN", "USER", "COLLECTOR");
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/evaluation/pending-verification").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.PUT, "/api/v1/evaluation/verify/**").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.PUT, "/api/v1/evaluation/*/submit").hasAuthority("COLLECTOR");
+
                     auth.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
                     auth.anyRequest().authenticated();
                 })

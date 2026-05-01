@@ -12,7 +12,7 @@
 	<groupId>com.iso27004</groupId>
 	<artifactId>ISMSMetric</artifactId>
 	<version>0.1.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	
 	
 	<name>iso27004</name>
 	<description>Demo project for Spring Boot</description>
@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.26</version>
+			<version>1.18.46</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -82,14 +82,8 @@
 			<version>0.11.5</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>5.2.8.RELEASE</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
-			<version>2.5.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -120,12 +114,6 @@
 			<artifactId>spring-security-config</artifactId>
    </dependency>
 
-   <dependency>
-     <groupId>jfreechart</groupId>
-     <artifactId>jfreechart</artifactId>
-     <version>0.9.8</version>
- 	</dependency>
-
 		<dependency>
 			<groupId>com.github.dhorions</groupId>
 			<artifactId>boxable</artifactId>
@@ -138,6 +126,19 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.46</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

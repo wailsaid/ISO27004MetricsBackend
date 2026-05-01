@@ -33,6 +33,9 @@ public class Departement {
     @Column(nullable = false)
     private String name;
 
+    @Column(length = 2000)
+    private String description;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(name = "dep_Indicator", joinColumns = @JoinColumn(name = "dep_id"), inverseJoinColumns = @JoinColumn(name = "indicator_id"))
     private List<Indicator> indicators = new ArrayList<Indicator>();
